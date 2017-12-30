@@ -22,11 +22,11 @@ then
 fi
 
 echo "------------ update SonosLibrary -----------------"
-rsync -avz --exclude=.DS_Store --delete --delete-excluded $SOURCE_VOLUME/SonosLibrary/* admin@${NAS_IP}:/share/HDA_DATA/SonosLibrary
-echo "------------ update VideoLibrary -----------------"
-rsync -avz --exclude=.DS_Store --delete --delete-excluded $SOURCE_VOLUME/$WWL_FOLDER/MP4_Files_10D_STP_General/* admin@${NAS_IP}:/share/HDA_DATA/VideoLibrary
-echo "------------ update iPodLibrary -----------------"
-rsync -avz --exclude=.DS_Store --delete --delete-excluded $SOURCE_VOLUME/$WWL_FOLDER/WWL_HDD/* admin@${NAS_IP}:/share/HDA_DATA/iPodLibrary
+rsync -avz --exclude=.DS_Store --exclude=._* --delete --delete-excluded $SOURCE_VOLUME/SonosLibrary/* admin@${NAS_IP}:/share/HDA_DATA/SonosLibrary
+#echo "------------ update VideoLibrary -----------------"
+#rsync -avz --exclude=.DS_Store --exclude=._* --delete --delete-excluded $SOURCE_VOLUME/$WWL_FOLDER/WWL_mp4/* admin@${NAS_IP}:/share/HDA_DATA/VideoLibrary
+#echo "------------ update iPodLibrary -----------------"
+#rsync -avz --exclude=.DS_Store --exclude=._* --delete --delete-excluded $SOURCE_VOLUME/$WWL_FOLDER/WWL_mp3/* admin@${NAS_IP}:/share/HDA_DATA/iPodLibrary
 echo "------------ Next... -----------------"
 
 # Next:

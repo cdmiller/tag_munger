@@ -17,7 +17,7 @@ options = {}
 options[:directory] = "."
 options[:dry_run] = true
 
-
+# check the command line options
 if ARGV.count == 0 #print help text if no options supplied
   ARGV << "--help"
 end
@@ -26,12 +26,14 @@ OptionParser.new do |opts|
   opts.banner = "\nUsage: tag_utility [options] \n\t\t***tag_utility defaults to dry_run/report mode***\n\t\t***Use --write-changes option to actually change tags***"
   opts.version = VERSION
 
-###   opts.on("-b [FLAGS]","--browse [FLAGS]",\
-###           "\n\t\tDisplay the current mp3 metadata.\n\t\tTakes optional, comma separated list of tags you're interested in (album,artist,track)") do |flags|
-###     options[:browse] = flags || true
-###   end
+  opts.on("-b [FLAGS]","--browse [FLAGS]",\
+          "Display the current mp3 metadata of files in the directory specified by -d."\
+          "\n\t\t\t\t\tTakes optional, comma separated list of tags you're interested in (album,artist,track)") do |flags|
+    options[:browse] = flags || true
+  end
 
-  opts.on("-a","--albums", "Derive new album tag for mp3 files and output them to the screen. You need to specify the write-changes option to actually change the album tags.") do |a|
+  opts.on("-a","--albums", "Derive new album tag for mp3 files and output them to the screen."\
+          "\n\t\t\t\t\tYou need to specify the write-changes option to actually change the album tags.") do |a|
     # runs the generic album name generator. Does a dry run by default
     options[:albums] = a
   end
@@ -47,16 +49,21 @@ OptionParser.new do |opts|
   opts.on("-e FILENAME", "--edit FILENAME", "Interactive editing of tags for given file. Accepts limited globbing on filename.") do |file_name|
     options[:edit] = file_name
   end
-  opts.on("-t","--tapeLib", "Use this option to set the album tag and track title tag for use in the international tape library. Output them to the screen. You need to specify the write-changes option to actually change the tags.") do |a|
+  opts.on("-t","--tapeLib", "Use this option to set the album tag and track title tag for use in the international tape library."\
+          "\n\t\t\t\t\tOutput them to the screen. You need to specify the write-changes option to actually change the tags.") do |a|
     # runs the international fix album function. Does a dry run by default
     options[:tape_lib] = a
   end
   
 end.parse!
 
+# create a new tag munger object to access the tags
 tagger = TagMunger.new(options[:directory], options[:dry_run])
 
+# do stuff
+
 if options.has_key?(:browse)
+  puts options[:browse]
   if options[:browse].class == String
     which_tags =  options[:browse].split(",")
   end
