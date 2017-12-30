@@ -18,7 +18,8 @@ library do the following:
 
 $ cd ~/code/tag_munger
 <edit bin/hjwConfig.yml so that the paths in there are correct>
-$ bin/fix_lib.rb --vmc_mods bin/hjwConfig.yml
+$ bin/fix_lib.rb --vmc_mods bin/hjwConfig.yml  # interactively, copies files but does not actually change tags
+$ bin/fix_lib.rb --vmc_mods bin/hjwConfig.yml --quiet # do it for real
 
 You can run the rdoc command from the root directory of this code to generate
 documentation. The nicest wat to view it is to open the generated doc/index.html
@@ -26,7 +27,8 @@ file with your browser.
 
 If you have just downloaded this code from a repository you will need to run
 
-bundle install
+bundle install #  to pull in all of the necessary ruby gems.
+rdoc # to update the html files in Doc directory
 
 in order to pull in all of the necessary ruby gems.
 Often, there will be a problem installing the taglib-ruby gem because it

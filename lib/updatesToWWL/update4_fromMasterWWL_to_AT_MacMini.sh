@@ -6,25 +6,20 @@
 # make a local copy called SonosLibrary on DharaWWL silver 1gb portable HD, making slight rearrangements
 PORTABLE='/Volumes/DharaWWL'
 WWL_FOLDER='WWL_2017'
-#WWL_Exceptions ='WWL_Exceptions'
 VMC_ADDITIONAL ='VMC_Additional_Files'
 MP3_FOLDER='/Users/Shared/MP3\ Library'
 
+# copy library and delete old stuff including VMC_ADDTIONAL
 mkdir -v $MP3_FOLDER
-#mkdir -v $MP3_FOLDER/$WWL_Exceptions
+rsync -avz --delete --exclude=.DS_Store $PORTABLE/$WWL_FOLDER/WWL_mp3/* $MP3_FOLDER
+
+# then add in VMC_ADDITIONAL
 mkdir -v $MP3_FOLDER/$VMC_ADDITIONAL
+rsync -avz --exclude=.DS_Store $PORTABLE/$VMC_ADDITIONAL/* $MP3_FOLDER/$VMC_ADDITIONAL
 
-#rsync -avz $PORTABLE/$WWL_FOLDER/WWL_HDD/* $MP3_FOLDER
-#rsync -avz $PORTABLE/$WWL_FOLDER/$WWL_Exceptions/* $MP3_FOLDER/$WWL_Exceptions
-rsync -avz $PORTABLE/$VMC_ADDITIONAL/* $MP3_FOLDER/$VMC_ADDITIONAL
-
-# rsync -avz --delete-after --dry-run /Volumes/DharaWWL/WWD_2014/WWL_HDD /Users/Shared/MP3\ Library |less
-# chmod -R g-w /Users/Shared/MP3\ Library/
-# chmod -R o-w /Users/Shared/MP3\ Library/
-
-
-#chmod -R g-w $MP3_FOLDER
-#chmod -R o-w $MP3_FOLDER
+# make files read-only for AT user
+chmod -R g-w $MP3_FOLDER
+chmod -R o-w $MP3_FOLDER
 
 echo 'Now ALL ORIGINAL FILES should be on local HD'
 echo 'Done.  Log in as AT and verify files are readable but not changeable.'
